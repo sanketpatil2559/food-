@@ -11,6 +11,7 @@ To run: uvicorn main:app --reload
 """
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
@@ -47,8 +48,8 @@ class ChatResponse(BaseModel):
 # ─── Routes ───────────────────────────────────────────────────
 
 @app.get("/")
-def root():
-    return {"message": "Food RAG Chatbot API is running! 🍛"}
+async def root():
+    return FileResponse("index.html")
 
 
 @app.post("/chat", response_model=ChatResponse)
